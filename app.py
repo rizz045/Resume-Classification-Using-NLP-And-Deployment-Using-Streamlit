@@ -7,6 +7,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import numpy as np
 import os
+import pickle
 
 # Download NLTK resources only if not already downloaded
 nltk_data_path = os.path.join(os.path.expanduser("~"), "nltk_data")
@@ -50,13 +51,16 @@ def load_models():
     """Load all required models with caching"""
     try:
         # Load TF-IDF vectorizer
-        tfidf = joblib.load('tfidf_vectorizer.pkl')
+        with open("tfidf.pkl", "rb") as file:
+            tfidf = pickle.load(file)
         
         # Load Gradient Boosting model
-        model = joblib.load('gradient_boosting.pkl')
+        with open("gradient_boosting.pkl", "rb") as file:
+            model = pickle.load(file)
         
         # Initialize LabelEncoder (assuming encoder.py contains the class)
-        le = joblib.load('encoder.pkl')
+        with open("encoder.pkl", "rb") as file:
+            le = pickle.load(file)
         
         return tfidf, model, le
     except Exception as e:
