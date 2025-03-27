@@ -46,7 +46,7 @@ def preprocess_resume_text(text):
     
     return ' '.join(tokens)
 
-# @st.cache_resource
+### @st.cache_resource
 # def load_models():
 #     """Load all required models with caching"""
 #     try:
