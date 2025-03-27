@@ -51,7 +51,7 @@ def load_models():
     """Load all required models with caching"""
     try:
         # Load TF-IDF vectorizer
-        with open("tfidf.pkl", "rb") as file:
+        with open("tfidf_vectorizer.pkl", "rb") as file:
             tfidf = pickle.load(file)
         
         # Load Gradient Boosting model
