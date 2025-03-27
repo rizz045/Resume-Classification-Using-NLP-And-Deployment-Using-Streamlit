@@ -46,37 +46,37 @@ def preprocess_resume_text(text):
     
     return ' '.join(tokens)
 
-### @st.cache_resource
-# def load_models():
-#     """Load all required models with caching"""
-#     try:
-#         # Load TF-IDF vectorizer
-with open("tfidf_vectorizer.pkl", "rb") as file:
-    tfidf = pickle.load(file)
+@st.cache_resource
+def load_models():
+    """Load all required models with caching"""
+    try:
+        # Load TF-IDF vectorizer
+        with open("tfidf_vectorizer.pkl", "rb") as file:
+            tfidf = pickle.load(file)
         
-# Load Gradient Boosting model
-with open("gradient_boosting.pkl", "rb") as file:
-    model = pickle.load(file)
+        # Load Gradient Boosting model
+        with open("gradient_boosting.pkl", "rb") as file:
+            model = pickle.load(file)
         
-# Initialize LabelEncoder (assuming encoder.py contains the class)
-with open("encoder.pkl", "rb") as file:
-    le = pickle.load(file)
+        # Initialize LabelEncoder (assuming encoder.py contains the class)
+        with open("encoder.pkl", "rb") as file:
+            le = pickle.load(file)
         
-    #     return tfidf, model, le
-    # except Exception as e:
-    #     st.error(f"Error loading models: {str(e)}")
-    #     return None, None, None
+        return tfidf, model, le
+    except Exception as e:
+        st.error(f"Error loading models: {str(e)}")
+        return None, None, None
 
 def main():
     st.title("Resume Classification System")
     st.markdown("Upload a resume in DOCX format to classify its category")
     
-    # # Load models
-    # tfidf, model, le = load_models()
+    # Load models
+    tfidf, model, le = load_models()
     
-    # if tfidf is None or model is None or le is None:
-    #     st.error("Failed to load required models. Please check your model files.")
-    #     return
+    if tfidf is None or model is None or le is None:
+        st.error("Failed to load required models. Please check your model files.")
+        return
     
     # File uploader
     uploaded_file = st.file_uploader("Choose a DOCX resume file", type="docx")
